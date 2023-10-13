@@ -2,7 +2,6 @@ package com.example.shoplist.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.shoplist.domain.ShopItem
 
 @Dao
 interface ShopListDao {
