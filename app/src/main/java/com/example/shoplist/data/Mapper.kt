@@ -5,19 +5,19 @@ import com.example.shoplist.domain.ShopItem
 class Mapper {
     fun mapEntityToModel(shopItem: ShopItem): DbModel {
         return DbModel(
-            shopItem.id,
-            shopItem.name,
-            shopItem.count,
-            shopItem.enabled
+            id = shopItem.id,
+            name = shopItem.name,
+            count = shopItem.count,
+            enabled = shopItem.enabled
         )
     }
 
-    fun mapModelToEntity(shopItem: DbModel): ShopItem {
+    fun mapModelToEntity(model: DbModel): ShopItem {
         return ShopItem(
-            shopItem.id,
-            shopItem.name,
-            shopItem.count,
-            shopItem.enabled
+            name = model.name,
+            count = model.count,
+            enabled = model.enabled,
+            id = model.id
         )
     }
 

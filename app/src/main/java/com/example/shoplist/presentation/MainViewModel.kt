@@ -6,7 +6,7 @@ import com.example.shoplist.data.RepositoryImpl
 import com.example.shoplist.domain.DeleteShopItemUseCase
 import com.example.shoplist.domain.GetShopListUseCase
 import com.example.shoplist.domain.ShopItem
-import com.example.shoplist.domain.UpdateShopItemUseCase
+import com.example.shoplist.domain.EditShopItemUseCase
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
 
@@ -14,7 +14,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     private val getShopListUseCase = GetShopListUseCase(repositoryImpl)
     private val deleteShopItemUseCase = DeleteShopItemUseCase(repositoryImpl)
-    private val updateShopItemUseCase = UpdateShopItemUseCase(repositoryImpl)
+    private val editShopItemUseCase = EditShopItemUseCase(repositoryImpl)
 
     val shopList = getShopListUseCase.getShopList()
 
@@ -24,6 +24,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun changeEnableState(shopItem: ShopItem) {
         val item = shopItem.copy(enabled = !shopItem.enabled)
-        updateShopItemUseCase.updateShopItem(item)
+        editShopItemUseCase.updateShopItem(item)
     }
 }
