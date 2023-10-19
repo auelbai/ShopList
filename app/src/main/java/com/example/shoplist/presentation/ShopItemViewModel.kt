@@ -41,8 +41,8 @@ class ShopItemViewModel(application: Application) : AndroidViewModel(application
         if (fieldsValid) {
             val item = ShopItem(name, count, true)
             addShopItemUseCase.addShopItem(item)
+            closeScreen()
         }
-        closeScreen()
     }
 
     fun getShopItem(id: Int) {
@@ -80,7 +80,7 @@ class ShopItemViewModel(application: Application) : AndroidViewModel(application
             _errorInputName.value = true
             result = false
         }
-        if (count < 0) {
+        if (count <= 0) {
             _errorInputCount.value = true
             result = false
         }
@@ -95,7 +95,7 @@ class ShopItemViewModel(application: Application) : AndroidViewModel(application
         _errorInputCount.value = false
     }
 
-    fun closeScreen() {
+    private fun closeScreen() {
         _shouldCloseScreen.value = Unit
     }
 }

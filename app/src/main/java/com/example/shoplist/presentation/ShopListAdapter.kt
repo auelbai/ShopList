@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoplist.R
 import com.example.shoplist.domain.ShopItem
 
-class ShopListAdapter : ListAdapter<ShopItem, ShopListAdapter.ShopItemViewHolder>(ShopItemDiffCallback()) {
+class ShopListAdapter : ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCallback()) {
 
     var onShopItemLongClickListener: ((item: ShopItem) -> Unit)? = null
     var onShopItemClickListener: ((item: ShopItem) -> Unit)? = null
@@ -51,12 +51,6 @@ class ShopListAdapter : ListAdapter<ShopItem, ShopListAdapter.ShopItemViewHolder
             ENABLE_ITEM
         } else DISABLE_ITEM
     }
-
-    class ShopItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvText = view.findViewById<TextView>(R.id.tv_name)
-        val tvCount = view.findViewById<TextView>(R.id.tv_count)
-    }
-
     companion object {
         const val ENABLE_ITEM = 111
         const val DISABLE_ITEM = 222
