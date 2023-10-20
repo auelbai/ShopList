@@ -17,19 +17,19 @@ class RepositoryImpl(application: Application) : Repository {
         }
     }
 
-    override fun addShopItem(shopItem: ShopItem) {
+    override suspend fun addShopItem(shopItem: ShopItem) {
         shopListDao.addShopItem(mapper.mapEntityToModel(shopItem))
     }
 
-    override fun deleteShopItem(shopItem: ShopItem) {
+    override suspend fun deleteShopItem(shopItem: ShopItem) {
         shopListDao.deleteShopItem(mapper.mapEntityToModel(shopItem))
     }
 
-    override fun updateShopItem(shopItem: ShopItem) {
+    override suspend fun updateShopItem(shopItem: ShopItem) {
         shopListDao.addShopItem(mapper.mapEntityToModel(shopItem))
     }
 
-    override fun getShopItem(id: Int): ShopItem {
+    override suspend fun getShopItem(id: Int): ShopItem {
         return mapper.mapModelToEntity(shopListDao.getShopItem(id))
     }
 }

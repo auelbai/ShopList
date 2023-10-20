@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -72,16 +73,20 @@ class ShopItemFragment(): Fragment() {
     }
 
     private fun launchAddMode() {
-        viewModel.addShopItem(etName.text?.toString(), etCount.text?.toString())
+        saveButton.setOnClickListener {
+            viewModel.addShopItem(etName.text?.toString(), etCount.text?.toString())
+        }
     }
 
     private fun launchEditMode() {
         viewModel.getShopItem(shopItemId)
         viewModel.shopItem.observe(viewLifecycleOwner){
             etName.setText(it.name)
-            etCount.setText(it.count)
+            etCount.setText(it.count.toString())
         }
-        viewModel.editShopItemUseCase(etName.text?.toString(), etCount.text?.toString())
+        saveButton.setOnClickListener {
+            viewModel.editShopItemUseCase(etName.text?.toString(), etCount.text?.toString())
+        }
     }
 
     private fun resetErrors() {

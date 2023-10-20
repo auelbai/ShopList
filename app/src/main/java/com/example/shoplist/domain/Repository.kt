@@ -6,11 +6,11 @@ interface Repository {
 
     fun getShopList(): LiveData<List<ShopItem>>
 
-    fun addShopItem(shopItem: ShopItem)
+    suspend fun addShopItem(shopItem: ShopItem)
 
-    fun deleteShopItem(shopItem: ShopItem)
+    suspend fun deleteShopItem(shopItem: ShopItem)
 
-    fun updateShopItem(shopItem: ShopItem)
+    suspend fun updateShopItem(shopItem: ShopItem)
 
-    fun getShopItem(id: Int): ShopItem
+    suspend fun getShopItem(id: Int): ShopItem
 }

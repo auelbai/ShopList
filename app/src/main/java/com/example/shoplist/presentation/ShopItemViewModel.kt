@@ -4,11 +4,16 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.shoplist.data.RepositoryImpl
 import com.example.shoplist.domain.AddShopItemUseCase
 import com.example.shoplist.domain.GetShopItemUseCase
 import com.example.shoplist.domain.ShopItem
 import com.example.shoplist.domain.EditShopItemUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 class ShopItemViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -35,29 +40,40 @@ class ShopItemViewModel(application: Application) : AndroidViewModel(application
         get() = _shouldCloseScreen
 
     fun addShopItem(inputName: String?, inputCount: String?) {
+
         val name = parseName(inputName)
         val count = parseCount(inputCount)
         val fieldsValid = validateInput(name, count)
         if (fieldsValid) {
-            val item = ShopItem(name, count, true)
-            addShopItemUseCase.addShopItem(item)
-            closeScreen()
+            viewModelScope.launch {
+                val item = ShopItem(name, count, true)
+                addShopItemUseCase.addShopItem(item)
+                closeScreen()
+            }
         }
     }
 
     fun getShopItem(id: Int) {
-        _shopItem.value = getShopItemUseCase.getShopItem(id)
+
+        viewModelScope.launch {
+            val item = getShopItemUseCase.getShopItem(id)
+            _shopItem.value = item
+        }
+
     }
 
     fun editShopItemUseCase(inputName: String?, inputCount: String?) {
+
         val name = parseName(inputName)
         val count = parseCount(inputCount)
         val fieldsValid = validateInput(name, count)
         if (fieldsValid) {
             _shopItem.value?.let {
-                val item = it.copy(name = name, count = count)
-                editShopItemUseCase.updateShopItem(item)
-                closeScreen()
+                viewModelScope.launch {
+                    val item = it.copy(name = name, count = count)
+                    editShopItemUseCase.updateShopItem(item)
+                    closeScreen()
+                }
             }
         }
     }

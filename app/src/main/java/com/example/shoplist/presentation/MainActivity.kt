@@ -72,14 +72,17 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishListen
 
         shopListAdapter.onShopItemClickListener = {
             if (isOnePainMode()) {
-                ShopItemActivity.newIntentEditItem(this, it.id)
+                val intent = ShopItemActivity.newIntentEditItem(this, it.id)
+                startActivity(intent)
             } else {
                 launchFragment(ShopItemFragment.newInstanceEditMode(it.id))
             }
         }
     }
 
-    private fun isOnePainMode() = shopItemContainer == null
+    private fun isOnePainMode(): Boolean{
+        return shopItemContainer == null
+    }
 
     private fun swipeToDelete(rvShopList: RecyclerView) {
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, LEFT) {
